@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CASE FILE 0108</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background:
+            radial-gradient(circle at center, #151515 0%, #050505 55%, #000 100%);
+        color: #bdbdbd;
+        font-family: "Courier New", monospace;
+        min-height: 100vh;
+        padding: 40px 20px;
+        overflow-x: hidden;
+    }
+
+    /* HELP */
+    .help {
+        position: fixed;
+        color: #500000;
+        font-size: 28px;
+        font-weight: bold;
+        user-select: none;
+        pointer-events: none;
+        opacity: 0.75;
+    }
+
+    .h1 { top: 7%; left: 12%; }
+    .h2 { top: 32%; right: 14%; }
+    .h3 { bottom: 20%; left: 7%; }
+    .h4 { bottom: 8%; right: 9%; }
+
+    /* LANGUAGE */
+    #languages {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 10;
+    }
+
+    #languages button {
+        background: #080808;
+        color: #777;
+        border: 1px solid #333;
+        padding: 6px 9px;
+        font-family: "Courier New", monospace;
+        cursor: pointer;
+        margin-left: 3px;
+    }
+
+    #languages button:hover {
+        color: white;
+        border-color: #777;
+    }
+
+    /* DOCUMENT */
+    .document {
+        max-width: 850px;
+        margin: auto;
+        background: rgba(8,8,8,0.94);
+        border: 1px solid #3b3b3b;
+        padding: 35px;
+        box-shadow: 0 0 35px rgba(0,0,0,0.9);
+        position: relative;
+    }
+
+    .header {
+        text-align: center;
+        border-bottom: 1px solid #444;
+        padding-bottom: 18px;
+        margin-bottom: 25px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+        letter-spacing: 5px;
+        color: #c7c7c7;
+        margin: 0 0 8px;
+    }
+
+    .header p {
+        margin: 4px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .warning {
+        color: #7c0000;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .section {
+        margin: 24px 0;
+    }
+
+    .section-title {
+        color: #777;
+        border-bottom: 1px dashed #333;
+        padding-bottom: 5px;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+    }
+
+    .row {
+        margin: 8px 0;
+    }
+
+    .label {
+        color: #666;
+    }
+
+    .value {
+        color: #aaa;
+    }
+
+    p {
+        line-height: 1.7;
+        font-size: 14px;
+    }
+
+    .stamp {
+        border: 1px solid #540000;
+        color: #710000;
+        display: inline-block;
+        padding: 8px 14px;
+        transform: rotate(-3deg);
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .footer {
+        margin-top: 35px;
+        padding-top: 15px;
+        border-top: 1px solid #333;
+        font-size: 11px;
+        color: #555;
+        text-align: center;
+    }
+
+    /* CENSORED TEXT */
+    .censored {
+        background: #050505;
+        color: #050505;
+        cursor: text;
+        padding: 0 3px;
+        border-bottom: 1px dotted #222;
+    }
+
+    .censored::selection {
+        background: #aaa;
+        color: #050505;
+    }
+
+    /* SECRET WORDS */
+    .secretText {
+        color: #080808;
+        cursor: text;
+        user-select: text;
+    }
+
+    .secretText::selection {
+        background: #777;
+        color: #050505;
+    }
+
+    .redacted {
+        color: #111;
+        background: #111;
+        padding: 0 5px;
+        letter-spacing: 2px;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="languages">
+    <button onclick="setLanguage('es')">ES</button>
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('pt')">PT</button>
+</div>
+
+<div class="help h1">H</div>
+<div class="help h2">E</div>
+<div class="help h3">L</div>
+<div class="help h4">P</div>
+
+<div class="document">
+
+    <div class="header">
+        <h1>NO SECURITY AGENCY</h1>
+
+        <p data-i18n="classified">
+            ARCHIVO INSTITUCIONAL — ACCESO RESTRINGIDO
+        </p>
+
+        <p class="warning" data-i18n="warning">
+            DOCUMENTO CLASIFICADO
+        </p>
+    </div>
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="caseinfo">
+            INFORMACIÓN DEL CASO
+        </div>
+
+        <div class="row">
+            <span class="label" data-i18n="case">CASO:</span>
+            <span class="value">0108</span>
+        </div>
+
+        <div class="row">
+            <span class="label" data-i18n="status">ESTADO:</span>
+            <span class="value" data-i18n="inactive">INACTIVO</span>
+        </div>
+
+        <div class="row">
+            <span class="label" data-i18n="name">NOMBRE:</span>
+            <span class="value">
+                <span class="censored">LYRA</span>
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label" data-i18n="age">EDAD:</span>
+            <span class="value">
+                <span class="censored">21</span>
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="label" data-i18n="date">FECHA DEL REGISTRO:</span>
+            <span class="value">14/09/2006</span>
+        </div>
+
+        <div class="row">
+            <span class="label" data-i18n="level">NIVEL DE OBSERVACIÓN:</span>
+            <span class="value">IV</span>
+        </div>
+
+        <div class="stamp" data-i18n="inactiveStamp">
+            INACTIVO
+        </div>
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="observation">
+            OBSERVACIÓN INICIAL
+        </div>
+
+        <p>
+            <span data-i18n="text1">
+                El sujeto fue sometido a un procedimiento experimental utilizando
+            </span>
+
+            <span class="censored">el cuerpo de la esposa de Alex</span>
+
+            <span data-i18n="text2">
+                como recipiente temporal.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text3">
+                La mente de
+            </span>
+
+            <span class="censored">Lyra</span>
+
+            <span data-i18n="text4">
+                fue transferida a un entorno digital designado como
+            </span>
+
+            <span class="secretText">R</span>
+
+            <span data-i18n="text5">
+                con el objetivo declarado de "mantenerla viva".
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text6">
+                El procedimiento fue registrado como
+            </span>
+
+            <span class="censored">EXPERIMENTO DE CONTINUIDAD</span>
+
+            <span data-i18n="text7">
+                y posteriormente ocultado dentro de los archivos internos.
+            </span>
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="environment">
+            ENTORNO DIGITAL
+        </div>
+
+        <p>
+            <span data-i18n="text8">
+                La conciencia del sujeto se encuentra actualmente contenida
+                dentro de un avatar identificado como
+            </span>
+
+            <span class="censored">MYRA</span>.
+        </p>
+
+        <p>
+            <span data-i18n="text9">
+                El entorno fue creado artificialmente por la agencia.
+                El escenario contiene múltiples NPC equipados con un sistema
+                de inteligencia artificial avanzado.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text10">
+                Dichos NPC fueron programados para comportarse como personas
+                conocidas por el sujeto y reproducir comportamientos similares
+                a los de sus antiguos amigos.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text11">
+                También se añadió un NPC basado en
+            </span>
+
+            <span class="censored">MR.COOL</span>
+
+            <span data-i18n="text12">
+                con el propósito de simular una relación de pareja y crear
+                la sensación de una vida cotidiana normal.
+            </span>
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="awakening">
+            PROTOCOLO DE DESPERTAR
+        </div>
+
+        <p>
+            <span data-i18n="text13">
+                Al iniciar la simulación, el sujeto fue colocado dentro de
+            </span>
+
+            <span class="secretText">una cama</span>
+
+            <span data-i18n="text14">
+                sin recuerdos inmediatos del procedimiento.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text15">
+                La intención era provocar la impresión de que los acontecimientos
+                anteriores habían sido solamente un sueño.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text16">
+                El sujeto no debía descubrir que se encontraba dentro de R.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text17">
+                Hasta la fecha, el protocolo parece haber funcionado.
+            </span>
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="behavior">
+            COMPORTAMIENTO
+        </div>
+
+        <p>
+            <span data-i18n="text18">
+                No se han registrado comportamientos agresivos por parte del sujeto.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text19">
+                Sin embargo, los sensores han detectado episodios periódicos
+                de desconfianza dirigidos hacia el NPC basado en
+            </span>
+
+            <span class="censored">MR.COOL</span>.
+        </p>
+
+        <p>
+            <span data-i18n="text20">
+                En determinados momentos, el sujeto parece observar al NPC
+                durante períodos prolongados sin interactuar con él.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text21">
+                La causa de este comportamiento todavía no ha sido determinada.
+            </span>
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="future">
+            PROYECTO POSTERIOR
+        </div>
+
+        <p>
+            <span data-i18n="text22">
+                Los investigadores han propuesto utilizar la mente digitalizada
+                del sujeto como archivo base para un nuevo proyecto.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text23">
+                La copia sería utilizada para crear una entidad denominada
+            </span>
+
+            <span class="censored">L.0.V</span>.
+        </p>
+
+        <p>
+            <span data-i18n="text24">
+                El propósito registrado del proyecto consiste en utilizar
+                dicha entidad para atormentar psicológicamente al
+            </span>
+
+            <span class="censored">MR.COOL</span>
+
+            <span data-i18n="text25">
+                original.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text26">
+                Los documentos actuales no contienen información suficiente
+                para determinar la forma exacta en que se realizará la copia.
+            </span>
+        </p>
+
+        <p>
+            <span class="redacted">████████████████████████</span>
+        </p>
+
+        <p>
+            <span data-i18n="text27">
+                Toda información relacionada con el procedimiento ha sido
+                clasificada temporalmente.
+            </span>
+        </p>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title" data-i18n="final">
+            NOTA FINAL
+        </div>
+
+        <p>
+            <span data-i18n="text28">
+                El caso 0108 permanece inactivo.
+                La simulación continúa ejecutándose de manera autónoma.
+            </span>
+        </p>
+
+        <p>
+            <span data-i18n="text29">
+                No se recomienda establecer contacto directo con el sujeto
+                mientras permanezca dentro del entorno.
+            </span>
+        </p>
+
+        <p>
+            <span class="secretText">Alex.</span>
+        </p>
+
+    </div>
+
+
+    <div class="footer">
+
+        <div>
+            NO SECURITY AGENCY — EST. 1899
+        </div>
+
+        <div data-i18n="footer">
+            ARCHIVO 0108 // COPIA INTERNA // NO DISTRIBUIR
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const translations = {
+
+    es: {
+        classified: "ARCHIVO INSTITUCIONAL — ACCESO RESTRINGIDO",
+        warning: "DOCUMENTO CLASIFICADO",
+        caseinfo: "INFORMACIÓN DEL CASO",
+        case: "CASO:",
+        status: "ESTADO:",
+        inactive: "INACTIVO",
+        name: "NOMBRE:",
+        age: "EDAD:",
+        date: "FECHA DEL REGISTRO:",
+        level: "NIVEL DE OBSERVACIÓN:",
+        inactiveStamp: "INACTIVO",
+        observation: "OBSERVACIÓN INICIAL",
+        text1: "El sujeto fue sometido a un procedimiento experimental utilizando",
+        text2: "como recipiente temporal.",
+        text3: "La mente de",
+        text4: "fue transferida a un entorno digital designado como",
+        text5: "con el objetivo declarado de \"mantenerla viva\".",
+        text6: "El procedimiento fue registrado como",
+        text7: "y posteriormente ocultado dentro de los archivos internos.",
+        environment: "ENTORNO DIGITAL",
+        text8: "La conciencia del sujeto se encuentra actualmente contenida dentro de un avatar identificado como",
+        text9: "El entorno fue creado artificialmente por la agencia. El escenario contiene múltiples NPC equipados con un sistema de inteligencia artificial avanzado.",
+        text10: "Dichos NPC fueron programados para comportarse como personas conocidas por el sujeto y reproducir comportamientos similares a los de sus antiguos amigos.",
+        text11: "También se añadió un NPC basado en",
+        text12: "con el propósito de simular una relación de pareja y crear la sensación de una vida cotidiana normal.",
+        awakening: "PROTOCOLO DE DESPERTAR",
+        text13: "Al iniciar la simulación, el sujeto fue colocado dentro de",
+        text14: "sin recuerdos inmediatos del procedimiento.",
+        text15: "La intención era provocar la impresión de que los acontecimientos anteriores habían sido solamente un sueño.",
+        text16: "El sujeto no debía descubrir que se encontraba dentro de R.",
+        text17: "Hasta la fecha, el protocolo parece haber funcionado.",
+        behavior: "COMPORTAMIENTO",
+        text18: "No se han registrado comportamientos agresivos por parte del sujeto.",
+        text19: "Sin embargo, los sensores han detectado episodios periódicos de desconfianza dirigidos hacia el NPC basado en",
+        text20: "En determinados momentos, el sujeto parece observar al NPC durante períodos prolongados sin interactuar con él.",
+        text21: "La causa de este comportamiento todavía no ha sido determinada.",
+        future: "PROYECTO POSTERIOR",
+        text22: "Los investigadores han propuesto utilizar la mente digitalizada del sujeto como archivo base para un nuevo proyecto.",
+        text23: "La copia sería utilizada para crear una entidad denominada",
+        text24: "El propósito registrado del proyecto consiste en utilizar dicha entidad para atormentar psicológicamente al",
+        text25: "original.",
+        text26: "Los documentos actuales no contienen información suficiente para determinar la forma exacta en que se realizará la copia.",
+        text27: "Toda información relacionada con el procedimiento ha sido clasificada temporalmente.",
+        final: "NOTA FINAL",
+        text28: "El caso 0108 permanece inactivo. La simulación continúa ejecutándose de manera autónoma.",
+        text29: "No se recomienda establecer contacto directo con el sujeto mientras permanezca dentro del entorno.",
+        footer: "ARCHIVO 0108 // COPIA INTERNA // NO DISTRIBUIR"
+    },
+
+    en: {
+        classified: "INSTITUTIONAL FILE — RESTRICTED ACCESS",
+        warning: "CLASSIFIED DOCUMENT",
+        caseinfo: "CASE INFORMATION",
+        case: "CASE:",
+        status: "STATUS:",
+        inactive: "INACTIVE",
+        name: "NAME:",
+        age: "AGE:",
+        date: "RECORD DATE:",
+        level: "OBSERVATION LEVEL:",
+        inactiveStamp: "INACTIVE",
+        observation: "INITIAL OBSERVATION",
+        text1: "The subject underwent an experimental procedure using",
+        text2: "as a temporary vessel.",
+        text3: "The mind of",
+        text4: "was transferred into a digital environment designated as",
+        text5: "with the stated objective of \"keeping her alive\".",
+        text6: "The procedure was registered as",
+        text7: "and subsequently hidden within the internal archives.",
+        environment: "DIGITAL ENVIRONMENT",
+        text8: "The subject's consciousness is currently contained within an avatar identified as",
+        text9: "The environment was artificially created by the agency. The scenario contains multiple NPCs equipped with an advanced artificial intelligence system.",
+        text10: "These NPCs were programmed to behave like people known to the subject and reproduce behaviors similar to those of her former friends.",
+        text11: "An NPC based on",
+        text12: "was also added to simulate a romantic relationship and create the sensation of an ordinary real life.",
+        awakening: "AWAKENING PROTOCOL",
+        text13: "When the simulation began, the subject was placed inside",
+        text14: "with no immediate memories of the procedure.",
+        text15: "The intention was to make her believe that the previous events had only been a dream.",
+        text16: "The subject was not supposed to discover that she was inside R.",
+        text17: "So far, the protocol appears to have worked.",
+        behavior: "BEHAVIOR",
+        text18: "No aggressive behavior has been recorded from the subject.",
+        text19: "However, sensors have detected periodic episodes of distrust directed toward the NPC based on",
+        text20: "At certain moments, the subject appears to observe the NPC for prolonged periods without interacting with him.",
+        text21: "The cause of this behavior has not yet been determined.",
+        future: "SUBSEQUENT PROJECT",
+        text22: "Researchers have proposed using the subject's digitized mind as the base archive for a new project.",
+        text23: "The copy would be used to create an entity designated",
+        text24: "The recorded purpose of the project is to use this entity to psychologically torment the",
+        text25: "original.",
+        text26: "Current documents do not contain enough information to determine the exact method that will be used for the copy.",
+        text27: "All information related to the procedure has been temporarily classified.",
+        final: "FINAL NOTE",
+        text28: "Case 0108 remains inactive. The simulation continues running autonomously.",
+        text29: "Direct contact with the subject is not recommended while she remains inside the environment.",
+        footer: "FILE 0108 // INTERNAL COPY // DO NOT DISTRIBUTE"
+    },
+
+    pt: {
+        classified: "ARQUIVO INSTITUCIONAL — ACESSO RESTRITO",
+        warning: "DOCUMENTO CLASSIFICADO",
+        caseinfo: "INFORMAÇÕES DO CASO",
+        case: "CASO:",
+        status: "ESTADO:",
+        inactive: "INATIVO",
+        name: "NOME:",
+        age: "IDADE:",
+        date: "DATA DO REGISTRO:",
+        level: "NÍVEL DE OBSERVAÇÃO:",
+        inactiveStamp: "INATIVO",
+        observation: "OBSERVAÇÃO INICIAL",
+        text1: "O sujeito foi submetido a um procedimento experimental utilizando",
+        text2: "como recipiente temporário.",
+        text3: "A mente de",
+        text4: "foi transferida para um ambiente digital designado como",
+        text5: "com o objetivo declarado de \"mantê-la viva\".",
+        text6: "O procedimento foi registrado como",
+        text7: "e posteriormente ocultado nos arquivos internos.",
+        environment: "AMBIENTE DIGITAL",
+        text8: "A consciência do sujeito está atualmente contida em um avatar identificado como",
+        text9: "O ambiente foi criado artificialmente pela agência. O cenário contém vários NPCs equipados com um sistema avançado de inteligência artificial.",
+        text10: "Esses NPCs foram programados para agir como pessoas conhecidas pelo sujeito e reproduzir comportamentos semelhantes aos de seus antigos amigos.",
+        text11: "Também foi adicionado um NPC baseado em",
+        text12: "com o objetivo de simular um relacionamento e criar a sensação de uma vida cotidiana normal.",
+        awakening: "PROTOCOLO DE DESPERTAR",
+        text13: "Ao iniciar a simulação, o sujeito foi colocado dentro de",
+        text14: "sem memórias imediatas do procedimento.",
+        text15: "A intenção era fazê-la acreditar que os acontecimentos anteriores haviam sido apenas um sonho.",
+        text16: "O sujeito não deveria descobrir que estava dentro de R.",
+        text17: "Até o momento, o protocolo parece ter funcionado.",
+        behavior: "COMPORTAMENTO",
+        text18: "Nenhum comportamento agressivo foi registrado por parte do sujeito.",
+        text19: "Entretanto, os sensores detectaram episódios periódicos de desconfiança direcionados ao NPC baseado em",
+        text20: "Em determinados momentos, o sujeito parece observar o NPC por longos períodos sem interagir com ele.",
+        text21: "A causa desse comportamento ainda não foi determinada.",
+        future: "PROJETO POSTERIOR",
+        text22: "Os pesquisadores propuseram utilizar a mente digitalizada do sujeito como arquivo-base para um novo projeto.",
+        text23: "A cópia seria utilizada para criar uma entidade denominada",
+        text24: "O objetivo registrado do projeto consiste em utilizar essa entidade para atormentar psicologicamente o",
+        text25: "original.",
+        text26: "Os documentos atuais não contêm informações suficientes para determinar o método exato que será utilizado para realizar a cópia.",
+        text27: "Todas as informações relacionadas ao procedimento foram temporariamente classificadas.",
+        final: "NOTA FINAL",
+        text28: "O caso 0108 permanece inativo. A simulação continua funcionando de maneira autônoma.",
+        text29: "Não é recomendado estabelecer contato direto com o sujeito enquanto ela permanecer dentro do ambiente.",
+        footer: "ARQUIVO 0108 // CÓPIA INTERNA // NÃO DISTRIBUIR"
+    }
+};
+
+
+function setLanguage(lang) {
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+
+        const key = element.getAttribute("data-i18n");
+
+        if (translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
+
+    });
+
+    localStorage.setItem("language0108", lang);
+}
+
+
+const savedLanguage =
+    localStorage.getItem("language0108") || "es";
+
+setLanguage(savedLanguage);
+
+</script>
+
+</body>
+</html>
